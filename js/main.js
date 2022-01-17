@@ -1,11 +1,6 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
-// import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCB0YaTBmI1f_sjhxvCoEiwafVcLD6H86w",
   authDomain: "distance-ea18b.firebaseapp.com",
@@ -18,7 +13,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 
 const modal = document.getElementById("my_modal");
 const btn = document.getElementById("btn_modal_window");
@@ -42,6 +36,7 @@ const postsWrapper = document.querySelector('.posts');
 const buttonNewPost = document.querySelector('.button-new-post');
 const addPostElem = document.querySelector('.add-post');
 const regExpValidEmail = /^\w+@\w+\.\w{2,}$/;
+const DEFAULT_PHOTO = userAvatarElem.src;
 
 const setUsers = {
   user: null,
@@ -92,7 +87,7 @@ const setUsers = {
     firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .then(data => {
-        console.log(data)
+        this.editUser(email.substring(0, email.indexOf('@')), null, handler)
       })
       .catch(err => {
         const errCode = err.code;
@@ -124,26 +119,25 @@ const setUsers = {
 
     const user = firebase.auth().currentUser;
 
-    if (userName) {
-      if (userPhoto) {
+    if (displayName) {
+      if (photoURL) {
         user.updateProfile({
           displayName,
           photoURL
-        })
+        }).then(handler)
       } else {
         user.updateProfile({
           displayName
-        })
+        }).then(handler)
       }
     }
-    handler();
   },
-  getUser(email) {
-    return listUsers.find(item => item.email === email);
-  },
-  authorizedUser(user) {
-    this.user = user;
-  }
+  // getUser(email) {
+  //   return listUsers.find(item => item.email === email);
+  // },
+  // authorizedUser(user) {
+  //   this.user = user;
+  // }
 };
 
 const setPosts = {
@@ -159,40 +153,31 @@ const setPosts = {
     }
   ],
   addPost(title, text, tags, handler) {
+    const user = firebase.auth().currentUser;
+
     this.allPosts.unshift({
+      id: `postID${(+new Date()).toString(16)}-${user.uid}`,
       title, 
       text, 
       tags: tags.split(',').map(item => item.trim()), 
       author: {
         displayName: setUsers.user.displayName,
-        photo: setUsers.user.photo,
+        photo: setUsers.user.photoURL,
       },
       date: new Date().toLocaleString(), 
       like: 0,
       comments: 0,
     });
-    if(handler) {
+    firebase.database().ref('post').set(this.allPosts)
+      .then(() => this.getPosts(handler))
+  },
+  getPosts(handler) {
+    firebase.database().ref('post').on('value', snapshot => {
+      this.allPosts = snapshot.val() || [];
       handler();
-    }
+    })
   }
 };
-
-const listUsers = [
-  {
-    id: '01',
-    email: 'kkhlevnyy@mail.ru',
-    password: 'muadib4sda',
-    displayName: 'pinkepay',
-    photo: 'https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=jpg/path/sbdda8d877a048096/image/i8590eadfd0868248/version/1612791936/кирилл-кузнецов-актёр-санкт-петербургского-театра-мастерская.jpg'
-  }, 
-  {
-    id: '02',
-    email: 'stviking@mail.ru',
-    password: '6623282st',
-    displayName: 'starlord',
-    photo: 'http://ic.pics.livejournal.com/yana_anders/35088646/816065/816065_original.jpg'
-  }
-];
 
 const showAddPost = () => {
   addPostElem.classList.add('visible');
@@ -205,7 +190,7 @@ const toggleAuthDom = () => {   // func for toggling authrization menu
     loginElem.style.display = 'none';
     userElem.style.display = '';
     userNameElem.textContent = user.displayName;
-    userAvatarElem.src = user.photo ? user.photo : userAvatarElem.src;  // userAvatarElem.src = user.photo || userAvatarElem.src;
+    userAvatarElem.src = user.photoURL || DEFAULT_PHOTO;  // userAvatarElem.src = user.photo || userAvatarElem.src;
     buttonNewPost.classList.add('visible');
   } else {
     loginElem.style.display = '';
@@ -333,7 +318,7 @@ const init = () => {
   });
 
   setUsers.initUser(toggleAuthDom)
-  showAllPosts();
+  setPosts.getPosts(showAllPosts);
 };
 
 document.addEventListener('DOMContentLoaded', init);
