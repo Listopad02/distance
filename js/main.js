@@ -35,6 +35,7 @@ const userAvatarElem = document.querySelector('.user-avatar');
 const postsWrapper = document.querySelector('.posts');
 const buttonNewPost = document.querySelector('.button-new-post');
 const addPostElem = document.querySelector('.add-post');
+const loginForget = document.querySelector('.login-forget')
 const regExpValidEmail = /^\w+@\w+\.\w{2,}$/;
 const DEFAULT_PHOTO = userAvatarElem.src;
 
@@ -138,7 +139,23 @@ const setUsers = {
   // authorizedUser(user) {
   //   this.user = user;
   // }
+
+  sendForget(email) {
+    firebase.auth().sendPasswordResetEmail(email)
+      .then(() => {
+        alert('Письмо отправлено!')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 };
+
+loginForget.addEventListener('click', e => {
+  e.preventDefault()
+  setUsers.sendForget(emailInput.value)
+  emailInput.value = ''
+})
 
 const setPosts = {
   allPosts: [
