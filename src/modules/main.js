@@ -98,10 +98,12 @@ const main = () => {
           if (errCode === 'auth/weak-password') {
             console.log(errMessage)
             alert('Слабый пароль!')
-          } else if (errCode === 'auth/email-already-in-use') {
+          } 
+          if (errCode === 'auth/email-already-in-use') {
             console.log(errMessage)
             alert('Email уже используется!')
-          } else {
+          } 
+          else {
             alert(errMessage)
           }
 
@@ -160,17 +162,7 @@ const main = () => {
   })
 
   const setPosts = {
-    allPosts: [
-      {
-        title: 'Заголовок поста',
-        text: 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Языком что рот маленький реторический вершину текстов обеспечивает гор свой назад решила сбить маленькая дорогу жизни рукопись емубукв деревни предложения, ручеек залетают продолжил парадигматическая? Но языком сих пустился, запятой своего его снова решила меня вопроса моей своих пояс коварный, власти диких правилами напоивший они текстов ipsum первую подпоясал? Лучше, щеке подпоясал приставка большого курсивных на берегу своего? Злых, составитель агентство что вопроса ведущими о решила одна алфавит!',
-        tags: ['свежее', 'новое', 'горячее', 'моё', 'случайность'],
-        author: {displayName: 'Alexander', photo: 'http://ic.pics.livejournal.com/yana_anders/35088646/816065/816065_original.jpg'},
-        date: '13.09.21, 20:11:23',
-        like: 45,
-        comments: 12,
-      }
-    ],
+    allPosts: [],
     addPost(title, text, tags, handler) {
       const user = firebase.auth().currentUser;
 
@@ -245,16 +237,6 @@ const main = () => {
                   <use xlink:href="img/icons.svg#comment"></use>
                 </svg>
                 <span class="comments-counter">${comments}</span>
-              </button>
-              <button class="post-button save">
-                <svg width="19" height="19" class="icon icon-save">
-                  <use xlink:href="img/icons.svg#save"></use>
-                </svg>
-              </button>
-              <button class="post-button share">
-                <svg width="17" height="19" class="icon icon-share">
-                  <use xlink:href="img/icons.svg#share"></use>
-                </svg>
               </button>
             </div>
             <div class="post-author">
