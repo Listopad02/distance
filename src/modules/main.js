@@ -16,9 +16,6 @@ const main = () => {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-  // const modal = document.getElementById("my_modal");
-  // const btn = document.getElementById("btn_modal_window");
-  // const span = document.getElementsByClassName("close_modal_window")[0];
   const menuToggle = document.querySelector('#menu-toggle');
   const menu = document.querySelector('.sidebar');
   const loginElem = document.querySelector('.login');
@@ -68,22 +65,14 @@ const main = () => {
         } else {
           alert(errMessage)
         }
-
         console.log(err)
       })
-      // const user = this.getUser(email);
-      // if (user && user.password === password) {
-      //   this.authorizedUser(user);
-      //   handler();
-      // } else {
-      //   alert('Пользователь с такими данными не найден');
-      // }
     },
     logOut() {
       firebase.auth().signOut();
     },
     signUp(email, password, handler) {
-      if (!regExpValidEmail.test(email)) return alert ("Email не валиден");
+      if (!regExpValidEmail.test(email)) return alert("Email не валиден");
       if (!email.trim() || !password.trim()) {
         return alert ('Введите данные для входа');
       }
@@ -106,19 +95,8 @@ const main = () => {
           else {
             alert(errMessage)
           }
-
           console.log(err)
         });
-      // if (!this.getUser(email)) {
-      //   const user = {email, password, displayName: email.substring(0, email.indexOf('@'))};
-      //   listUsers.push(user);
-      //   this.authorizedUser(user);
-      //   if (handler) {
-      //     handler();
-      //   };
-      // } else {
-      //   alert('Пользователь с таким email уже зарегестрирован');
-      // }
     }, 
     editUser(displayName, photoURL, handler) {
 
@@ -137,12 +115,6 @@ const main = () => {
         }
       }
     },
-    // getUser(email) {
-    //   return listUsers.find(item => item.email === email);
-    // },
-    // authorizedUser(user) {
-    //   this.user = user;
-    // }
 
     sendForget(email) {
       firebase.auth().sendPasswordResetEmail(email)
@@ -152,7 +124,7 @@ const main = () => {
         .catch(err => {
           console.log(err)
         })
-    }
+    },
   };
 
   loginForget.addEventListener('click', e => {
