@@ -4,7 +4,7 @@ const main = () => {
   // Import the functions you need from the SDKs you need
 
   const firebaseConfig = {
-    apiKey: "AIzaSyCB0YaTBmI1f_sjhxvCoEiwafVcLD6H86w",
+    apiKey: "not gonna show you",
     authDomain: "distance-ea18b.firebaseapp.com",
     projectId: "distance-ea18b",
     storageBucket: "distance-ea18b.appspot.com",
