@@ -1,10 +1,20 @@
+const regExpValidMail = /^\w+@\w+\.\w{2,}$/;
+function signUp(email, password) {
+  if (regExpValidMail.test(email) && password.length >= 3) {
+    return true
+  } else {
+    return false
+  }
+}
+module.exports = signUp
+
 import { initializeApp } from "firebase/app";
 
 const main = () => {
   // Import the functions you need from the SDKs you need
 
   const firebaseConfig = {
-    apiKey: "not gonna show you",
+    apiKey: "AIzaSyCB0YaTBmI1f_sjhxvCoEiwafVcLD6H86w",
     authDomain: "distance-ea18b.firebaseapp.com",
     projectId: "distance-ea18b",
     storageBucket: "distance-ea18b.appspot.com",
