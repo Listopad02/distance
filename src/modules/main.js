@@ -1,6 +1,6 @@
 const regExpValidMail = /^\w+@\w+\.\w{2,}$/;
 function signUp(email, password) {
-  if (regExpValidMail.test(email) && password.length >= 3) {
+  if (regExpValidMail.test(email) && password.length >= 6) {
     return true
   } else {
     return false
