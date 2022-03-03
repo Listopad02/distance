@@ -1,12 +1,12 @@
-const regExpValidMail = /^\w+@\w+\.\w{2,}$/;
-function signUp(email, password) {
-  if (regExpValidMail.test(email) && password.length >= 6) {
-    return true
-  } else {
-    return false
-  }
-}
-module.exports = signUp
+// const regExpValidMail = /^\w+@\w+\.\w{2,}$/;
+// function signUp(email, password) {
+//   if (regExpValidMail.test(email) && password.length >= 6) {
+//     return true
+//   } else {
+//     return false
+//   }
+// }
+// module.exports = signUp
 
 import { initializeApp } from "firebase/app";
 
