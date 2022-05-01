@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distance — главная</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/contacts.css">
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js" defer></script>
+  <script defer src="dist/main.js" type="module"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-wrapper">
+      <!-- <a href="/" class="header-logo">
+        <img class="header-logo-image" src="img/logo.png" alt="logo: Pikadu">
+      </a> -->
+      <nav class="header-nav">
+        <ul class="header-menu">
+          <li class="header-menu-item"><a href="rules.html" class="header-menu-link">Правила</a></li>
+          <li class="header-menu-item"><a href="#" class="header-menu-link">Контакты</a></li>
+          <!-- <li class="header-menu-item"><a href="#" class="header-menu-link">Природа</a></li> -->
+        </ul>
+      </nav>
+      <div class="input-group search">
+        <input type="search" class="search-input" placeholder="Поиск по сайту">
+        <!-- <button class="search-button">
+          <img src="img/search.svg" alt="icon: search" class="search-icon">
+        </button> -->
+      </div>
+      <a href="#" class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+  </header>
+  <footer class="footer" id="section-footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__content-logo">
+                <div class="header__logo-small"></div>
+                <div class="header__logo-big"></div>
+                <h3 class="text-center">Интернет-форум</h3>
+            </div>
+
+            <div class="footer__content-adress">
+                <ul>
+                    <li>Moskow, Russia</li>
+                    <li>Serphukoskaya</li>
+                </ul>
+            </div>
+
+            <div class="footer__content-mail">
+                <ul>
+                    <li><a href="mailto:info@warehouse.project">kkhlevnyy@mail.ru</a></li>
+                    <li><a href="tel:1-232-3434">8(918)123-63-24</a></li>
+                </ul>
+            </div>
+
+            <div class="footer__content-rights">
+                <ul>
+                    <li>© Интернет-форум™, 2022. All rights reserved.</li>
+                    <li>Регистрационный номер компании: 21479524.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer__links">
+            <h3>Социальные сети</h3>
+            <div class="footer__links-media">
+                <div class="footer__link">
+                    <img src="img/facebook.png" alt="facebook" class="footer__link-img">
+                </div>
+                <div class="footer__link">
+                    <img src="img/twitter.png" alt="twitter" class="footer__link-img">
+                </div>
+                <div class="footer__link">
+                    <img src="img/inst.png" alt="instagram" class="footer__link-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    
+</body>
+</html>
