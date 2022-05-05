@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distance — главная</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/rules.css">
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js" defer></script>
+  <script defer src="dist/main.js" type="module"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-wrapper">
+      <!-- <a href="/" class="header-logo">
+        <img class="header-logo-image" src="img/logo.png" alt="logo: Pikadu">
+      </a> -->
+      <nav class="header-nav">
+        <ul class="header-menu">
+          <li class="header-menu-item"><a href="index.html" class="header-menu-link">Главная</a></li>
+          <li class="header-menu-item"><a href="rules.html" class="header-menu-link">Правила</a></li>
+          <li class="header-menu-item"><a href="contacts.html" class="header-menu-link">Контакты</a></li>
+          <!-- <li class="header-menu-item"><a href="#" class="header-menu-link">Природа</a></li> -->
+        </ul>
+      </nav>
+      <div class="input-group search">
+        <input type="search" class="search-input" placeholder="Поиск по сайту">
+        <!-- <button class="search-button">
+          <img src="img/search.svg" alt="icon: search" class="search-icon">
+        </button> -->
+      </div>
+      <a href="#" class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+  </header>
+  <section style="display: flex; justify-content: center;">
+    <a style="color: #2080ee;" href="https://console.firebase.google.com/project/distance-ea18b/database/distance-ea18b-default-rtdb/data">
+      <p>Открыть <i>панель администратора</i></p>
+    </a>
+  </section>
+
+    
+</body>
+</html>
