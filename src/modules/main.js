@@ -11,7 +11,7 @@ module.exports = signUp
 import { initializeApp } from "firebase/app";
 
 const main = () => {
-  // Import the functions you need from the SDKs you need
+  // Импорт функций для работы с запросами бд
 
   const firebaseConfig = {
     apiKey: "AIzaSyCB0YaTBmI1f_sjhxvCoEiwafVcLD6H86w",
@@ -23,7 +23,7 @@ const main = () => {
     measurementId: "G-5D5FQE79XD"
   };
 
-  // Initialize Firebase
+  // Инициализация базы данный
   const app = initializeApp(firebaseConfig);
 
   const menuToggle = document.querySelector('#menu-toggle');
@@ -60,44 +60,46 @@ const main = () => {
         if (handler) handler();
       })
     },
-    logIn(email, password) {
+    logIn(email, password) {  // входные данные 
       if (!regExpValidEmail.test(email)) return alert ("Email не валиден");
-
+       // вход по почте и паролю
       firebase.auth().signInWithEmailAndPassword(email, password).catch(err => {
         const errCode = err.code;
         const errMessage = err.message;
-        if (errCode === 'auth/wrong-password') {
+        if (errCode === 'auth/wrong-password') {  // если введен неправильный пароль
           console.log(errMessage)
           alert('Неверный пароль!')
-        } else if (errCode === 'auth/user-not-found') {
+        } else if (errCode === 'auth/user-not-found') {  // если отсутствует данный пользователь
           console.log(errMessage)
           alert('Пользователь не найден!')
-        } else {
+        } else {  // иная ошибка
           alert(errMessage)
         }
         console.log(err)
       })
     },
-    logOut() {
+    logOut() {  // выход пользователя из аккаунта
       firebase.auth().signOut();
     },
-    signUp(email, password, handler) {
+
+    
+    signUp(email, password, handler) {  // проверка правильности формата почты
       if (!regExpValidEmail.test(email)) return alert("Email не валиден");
-      if (!email.trim() || !password.trim()) {
+      if (!email.trim() || !password.trim()) {  // проверка, что почта не пустая
         return alert ('Введите данные для входа');
       }
-      firebase.auth()
+      firebase.auth()  // создание пользователя, если данные правильные
         .createUserWithEmailAndPassword(email, password)
-        .then(data => {
+        .then(data => {  // создание начального имени пользователя
           this.editUser(email.substring(0, email.indexOf('@')), null, handler)
-        })
+        })  // вероятные ошибки
         .catch(err => {
           const errCode = err.code;
-          const errMessage = err.message;
+          const errMessage = err.message;  // слабый пароль
           if (errCode === 'auth/weak-password') {
             console.log(errMessage)
             alert('Слабый пароль!')
-          } 
+          } // уже существующий email
           if (errCode === 'auth/email-already-in-use') {
             console.log(errMessage)
             alert('Email уже используется!')
@@ -110,13 +112,13 @@ const main = () => {
     }, 
     editUser(displayName, photoURL, handler) {
 
-      const user = firebase.auth().currentUser;
+      const user = firebase.auth().currentUser; // текущий пользователь
 
       if (displayName) {
-        if (photoURL) {
+        if (photoURL) {  
           user.updateProfile({
-            displayName,
-            photoURL
+            displayName,  // обновление фото
+            photoURL  // обновление логина
           }).then(handler)
         } else {
           user.updateProfile({
@@ -126,9 +128,9 @@ const main = () => {
       }
     },
 
-    sendForget(email) {
+    sendForget(email) { // отправить письмо на зарегистрированную почту
       firebase.auth().sendPasswordResetEmail(email)
-        .then(() => {
+        .then(() => {  // уведомить пользователя об отправке
           alert('Письмо отправлено!')
         })
         .catch(err => {
@@ -158,8 +160,6 @@ const main = () => {
           photo: setUsers.user.photoURL,
         },
         date: new Date().toLocaleString(), 
-        like: 0,
-        comments: 0,
       });
       firebase.database().ref('post').set(this.allPosts)
         .then(() => this.getPosts(handler))
@@ -169,6 +169,8 @@ const main = () => {
         this.allPosts = snapshot.val() || [];
         handler();
       })
+      const save = document.querySelector('.save')
+      console.log('save', save)
     }
   };
 
@@ -196,7 +198,7 @@ const main = () => {
 
   const showAllPosts = () => {
     let postsHTML =  '';
-    setPosts.allPosts.forEach(({ title, text, date, tags, like, comments, author }) => {   // we use { title, text, date, tags } instead of post cause poat is an object
+    setPosts.allPosts.forEach(({ title, text, date, tags, like, comments, author }) => {   
       postsHTML += `
           <section class="post">
           <div class="post-body">

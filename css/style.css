@@ -1,6 +1,25 @@
 * {
   box-sizing: border-box;
 }
+.button_for_turn_back {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  background-image: url(../img/clear.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  margin: auto;
+}
+.button_for_search {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  background-image: url(../img/search.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  margin: auto;
+  object-fit: contain;
+}
 body {
   font-family: sans-serif;
   background: #e5e5e5;
@@ -41,6 +60,7 @@ body {
   line-height: 22px;
 }
 .input-group {
+  display: flex;
   max-width: 237px;
   width: 60%;
   height: 32px;
