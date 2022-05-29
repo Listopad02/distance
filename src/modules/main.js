@@ -6,26 +6,24 @@ function signUp(email, password) {
     return false
   }
 }
-module.exports = signUp
 
 import { initializeApp } from "firebase/app";
 
+// Импорт функций для работы с запросами бд
+const firebaseConfig = {
+  apiKey: "AIzaSyCB0YaTBmI1f_sjhxvCoEiwafVcLD6H86w",
+  authDomain: "distance-ea18b.firebaseapp.com",
+  projectId: "distance-ea18b",
+  storageBucket: "distance-ea18b.appspot.com",
+  messagingSenderId: "606739653445",
+  appId: "1:606739653445:web:f5dbba23bf0b43c53bd42c",
+  measurementId: "G-5D5FQE79XD"
+};
+
+// Инициализация базы данный
+firebase.initializeApp(firebaseConfig);
+
 const main = () => {
-  // Импорт функций для работы с запросами бд
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCB0YaTBmI1f_sjhxvCoEiwafVcLD6H86w",
-    authDomain: "distance-ea18b.firebaseapp.com",
-    projectId: "distance-ea18b",
-    storageBucket: "distance-ea18b.appspot.com",
-    messagingSenderId: "606739653445",
-    appId: "1:606739653445:web:f5dbba23bf0b43c53bd42c",
-    measurementId: "G-5D5FQE79XD"
-  };
-
-  // Инициализация базы данный
-  const app = initializeApp(firebaseConfig);
-
   const menuToggle = document.querySelector('#menu-toggle');
   const menu = document.querySelector('.sidebar');
   const loginElem = document.querySelector('.login');
@@ -47,6 +45,7 @@ const main = () => {
   const loginForget = document.querySelector('.login-forget')
   const regExpValidEmail = /^\w+@\w+\.\w{2,}$/;
   const DEFAULT_PHOTO = userAvatarElem.src;
+  const save = document.querySelector('.save')
 
   const setUsers = {
     user: null,
@@ -169,8 +168,6 @@ const main = () => {
         this.allPosts = snapshot.val() || [];
         handler();
       })
-      const save = document.querySelector('.save')
-      console.log('save', save)
     }
   };
 
@@ -222,6 +219,11 @@ const main = () => {
                 </svg>
                 <span class="comments-counter">${comments}</span>
               </button>
+              <button class="post-button save" value='${text}'>
+                <svg width="21" height="21" class="icon icon-save">
+                  <use xlink:href="img/icons.svg#save"></use>
+                </svg>
+              </button>
             </div>
             <div class="post-author">
               <div class="author-about">
@@ -235,6 +237,17 @@ const main = () => {
       `;
     });
     postsWrapper.innerHTML = postsHTML;
+
+    const save = document.querySelectorAll('.save')
+    const iconSave = document.querySelectorAll('.icon-save')
+
+    for (let i = 0; i < save.length; i++) {
+      save[i].addEventListener("click", e => {
+        navigator.clipboard.writeText(e.target.value)
+        alert("Текст скопирован в буфер обмена!")
+        e.stopPropagation();
+      }, true);
+    }
 
     addPostElem.classList.remove('visible');
     postsWrapper.classList.add('visible');
