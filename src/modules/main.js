@@ -45,7 +45,6 @@ const main = () => {
   const loginForget = document.querySelector('.login-forget')
   const regExpValidEmail = /^\w+@\w+\.\w{2,}$/;
   const DEFAULT_PHOTO = userAvatarElem.src;
-  const save = document.querySelector('.save')
 
   const setUsers = {
     user: null,
@@ -80,8 +79,6 @@ const main = () => {
     logOut() {  // выход пользователя из аккаунта
       firebase.auth().signOut();
     },
-
-    
     signUp(email, password, handler) {  // проверка правильности формата почты
       if (!regExpValidEmail.test(email)) return alert("Email не валиден");
       if (!email.trim() || !password.trim()) {  // проверка, что почта не пустая
@@ -159,6 +156,8 @@ const main = () => {
           photo: setUsers.user.photoURL,
         },
         date: new Date().toLocaleString(), 
+        like: 0,
+        comments: 0,
       });
       firebase.database().ref('post').set(this.allPosts)
         .then(() => this.getPosts(handler))
@@ -239,20 +238,30 @@ const main = () => {
     postsWrapper.innerHTML = postsHTML;
 
     const save = document.querySelectorAll('.save')
-    const iconSave = document.querySelectorAll('.icon-save')
+    const likes = document.querySelectorAll('.likes')
 
     for (let i = 0; i < save.length; i++) {
       save[i].addEventListener("click", e => {
         navigator.clipboard.writeText(e.target.value)
         alert("Текст скопирован в буфер обмена!")
-        e.stopPropagation();
-      }, true);
+      });
+    }
+
+    for (let i = 0; i < likes.length; i++) {
+      likes[i].addEventListener('click', () => {
+        const query = firebase.database().ref(`post/${i}`)
+        query.once('value', snapshot => {
+          snapshot.ref.update({
+            like: snapshot.val().like + 1
+          });
+        })
+      })
     }
 
     addPostElem.classList.remove('visible');
     postsWrapper.classList.add('visible');
   };
-
+  
   const init = () => {
     loginForm.addEventListener('submit', e => {
       e.preventDefault();
