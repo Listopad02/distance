@@ -157,7 +157,7 @@ const main = () => {
         },
         date: new Date().toLocaleString(), 
         like: 0,
-        comments: 0,
+        // comments: 0,
       });
       firebase.database().ref('post').set(this.allPosts)
         .then(() => this.getPosts(handler))
@@ -212,12 +212,7 @@ const main = () => {
                 </svg>
                 <span class="likes-counter">${like}</span>
               </button>
-              <button class="post-button comments">
-                <svg width="21" height="21" class="icon icon-comment">
-                  <use xlink:href="img/icons.svg#comment"></use>
-                </svg>
-                <span class="comments-counter">${comments}</span>
-              </button>
+              
               <button class="post-button save" value='${text}'>
                 <svg width="21" height="21" class="icon icon-save">
                   <use xlink:href="img/icons.svg#save"></use>

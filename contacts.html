@@ -10,7 +10,8 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js" defer></script>
-  <script defer src="dist/main.js" type="module"></script>
+  <script defer src="dist/main.js"></script>
+  <script src="js/script.js" defer></script>
 </head>
 <body>
   <header class="header">
@@ -27,10 +28,24 @@
         </ul>
       </nav>
       <div class="input-group search">
-        <input type="search" class="search-input" placeholder="Поиск по сайту">
-        <!-- <button class="search-button">
-          <img src="img/search.svg" alt="icon: search" class="search-icon">
-        </button> -->
+        <input type="text" 
+               class="search-input place_for_search" 
+               placeholder="Поиск по сайту"
+               value=""
+               id="text-to-find"
+        >
+        <input type="button" 
+               class="button_for_turn_back" 
+               placeholder="Х"
+               value=""
+               onclick="javascript: FindOnPage('text-to-find', false); return false;"
+        >
+        <input type="submit" 
+               class="button_for_search" 
+               placeholder="ОК"
+               value=""
+               onclick="javascript: FindOnPage('text-to-find', true); return false;"
+        >
       </div>
       <a href="#" class="menu-toggle" id="menu-toggle">
         <span></span>
