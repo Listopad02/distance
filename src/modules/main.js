@@ -7,6 +7,8 @@ function signUp(email, password) {
   }
 }
 
+// module.exports = signUp()
+
 import { initializeApp } from "firebase/app";
 
 // Импорт функций для работы с запросами бд
@@ -234,6 +236,14 @@ const main = () => {
 
     const save = document.querySelectorAll('.save')
     const likes = document.querySelectorAll('.likes')
+    const buttons = document.querySelectorAll('.post-footer')
+
+    for (let i = 0; i < buttons.length; i++) {
+      firebase.auth().currentUser === null ? 
+      buttons[i].style.display = 'none' : 
+      buttons[i].style.display = 'flex'
+    }
+    
 
     for (let i = 0; i < save.length; i++) {
       save[i].addEventListener("click", e => {
